@@ -1,0 +1,103 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* ─── Brand tokens ─────────────────────────────────────────────────────────── */
+:root {
+  /* Backgrounds */
+  --bg-base:     #080809;
+  --bg-surface:  #111114;
+  --bg-elevated: #18181c;
+  --bg-subtle:   #1e1e23;
+
+  /* Borders */
+  --border-default: #2a2a30;
+  --border-subtle:  #3a3a42;
+
+  /* Text */
+  --text-primary:   #f0f0f4;
+  --text-secondary: #c0c0cc;
+  --text-muted:     #808090;
+  --text-faint:     #505060;
+
+  /* Accents */
+  --accent-primary:     #00c8d4;
+  --accent-primary-dim: rgba(0, 200, 212, 0.12);
+  --accent-ai:          #6457f9;
+  --accent-ai-text:     #8b82ff;
+
+  /* State */
+  --state-error:   #ff4d4f;
+  --state-success: #34d399;
+  --state-warning: #fbbf24;
+
+  /* ─── shadcn component tokens (dark theme) ─────────────────────────────── */
+  --background:          var(--bg-base);
+  --foreground:          var(--text-primary);
+  --card:                var(--bg-surface);
+  --card-foreground:     var(--text-primary);
+  --popover:             var(--bg-elevated);
+  --popover-foreground:  var(--text-primary);
+  --primary:             var(--accent-primary);
+  --primary-foreground:  #080809;
+  --secondary:           var(--bg-elevated);
+  --secondary-foreground: var(--text-secondary);
+  --muted:               var(--bg-subtle);
+  --muted-foreground:    var(--text-muted);
+  --border:              var(--border-default);
+  --input:               var(--bg-subtle);
+  --ring:                var(--accent-primary);
+  --destructive:         var(--state-error);
+  --radius-md:           0.5rem;
+}
+
+/* ─── Tailwind v4 token mapping ─────────────────────────────────────────────── */
+@theme inline {
+  /* Brand utilities: bg-base, bg-surface, text-primary, border-default, etc. */
+  --color-base:          var(--bg-base);
+  --color-surface:       var(--bg-surface);
+  --color-elevated:      var(--bg-elevated);
+  --color-subtle:        var(--bg-subtle);
+  --color-border:        var(--border-default);
+  --color-border-subtle: var(--border-subtle);
+  --color-text-primary:  var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted:    var(--text-muted);
+  --color-text-faint:    var(--text-faint);
+  --color-accent:        var(--accent-primary);
+  --color-accent-dim:    var(--accent-primary-dim);
+  --color-accent-ai:     var(--accent-ai);
+  --color-accent-ai-text: var(--accent-ai-text);
+  --color-error:         var(--state-error);
+  --color-success:       var(--state-success);
+  --color-warning:       var(--state-warning);
+
+  /* shadcn utilities: bg-background, text-foreground, bg-card, etc. */
+  --color-background:         var(--background);
+  --color-foreground:         var(--foreground);
+  --color-card:               var(--card);
+  --color-card-foreground:    var(--card-foreground);
+  --color-popover:            var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary:            var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary:          var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted:              var(--muted);
+  --color-muted-foreground:   var(--muted-foreground);
+  --color-input:              var(--input);
+  --color-ring:               var(--ring);
+  --color-destructive:        var(--destructive);
+
+  /* Typography */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ─── Base styles ───────────────────────────────────────────────────────────── */
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-geist-sans), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
