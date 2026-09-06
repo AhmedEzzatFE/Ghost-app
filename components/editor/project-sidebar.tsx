@@ -15,10 +15,19 @@ interface ProjectSidebarProps {
 }
 
 export function ProjectSidebar({ isOpen, onClose }: ProjectSidebarProps) {
+  function handleClose() {
+    onClose()
+    // Return focus to the navbar toggle once state has flushed
+    requestAnimationFrame(() => {
+      document.querySelector<HTMLElement>("[data-sidebar-toggle]")?.focus()
+    })
+  }
+
   return (
     <aside
+      inert={!isOpen}
       className={[
-        "fixed left-0 top-0 z-40 flex h-full w-72 flex-col",
+        "fixed left-0 top-12 bottom-0 z-40 flex w-72 flex-col",
         "bg-elevated border-r border-border shadow-2xl",
         "transition-transform duration-300 ease-in-out",
         isOpen ? "translate-x-0" : "-translate-x-full",
@@ -30,7 +39,7 @@ export function ProjectSidebar({ isOpen, onClose }: ProjectSidebarProps) {
         <Button
           variant="ghost"
           size="icon-sm"
-          onClick={onClose}
+          onClick={handleClose}
           aria-label="Close sidebar"
         >
           <X className="h-4 w-4" />

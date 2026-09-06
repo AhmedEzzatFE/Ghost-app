@@ -18,6 +18,7 @@ export function EditorNavbar({ isSidebarOpen, onSidebarToggle }: EditorNavbarPro
           size="icon"
           onClick={onSidebarToggle}
           aria-label={isSidebarOpen ? "Close sidebar" : "Open sidebar"}
+          data-sidebar-toggle=""
         >
           {isSidebarOpen ? (
             <PanelLeftClose className="h-5 w-5" />
