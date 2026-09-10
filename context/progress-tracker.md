@@ -4,7 +4,7 @@ Update this file whenever the current phase, active feature, or implementation s
 
 ## Current Phase
 
-- Feature implementation — Auth ✓
+- Feature implementation — Project Dialogs ✓
 
 ## Current Goal
 
@@ -16,26 +16,38 @@ Update this file whenever the current phase, active feature, or implementation s
 - **01-design-system** — shadcn/ui (radix-nova preset) initialised; button, card, dialog, input, tabs, textarea, scroll-area added; lucide-react installed; `lib/utils.ts` cn() helper created; globals.css rewritten with full dark-only token set mapped to shadcn CSS variables via `@theme inline`; layout.tsx updated with `dark` class and "ghost AI" metadata.
 - **02-editor-chrome** — `components/editor/editor-navbar.tsx` created: fixed-height top navbar, left/center/right sections, `PanelLeftOpen`/`PanelLeftClose` toggle, dark `bg-surface` background with `border-border` bottom border. `components/editor/project-sidebar.tsx` created: floating overlay (fixed, z-40), slides in from left via CSS transform transition, `isOpen`/`onClose` props, "Projects" header with close button, shadcn Tabs (My Projects / Shared) with empty placeholder states, full-width "New Project" button with `Plus` icon. `app/page.tsx` updated to wire both components together with local `sidebarOpen` state. Zero TS errors, zero lint errors.
 - **03-auth** — `@clerk/ui` installed. Root layout wraps the app in `ClerkProvider` with Clerk’s `dark` theme and appearance variables mapped to existing CSS tokens (no hardcoded colors). `proxy.ts` at the project root protects all routes except `NEXT_PUBLIC_CLERK_SIGN_IN_URL` and `NEXT_PUBLIC_CLERK_SIGN_UP_URL`. `/` redirects authenticated users to `/editor` and unauthenticated users to sign-in. Dedicated `/sign-in` and `/sign-up` catch-all pages use Clerk components in a two-panel layout (logo, tagline, text-only feature list on large screens; form only on small screens). Editor navbar right section renders Clerk’s default `UserButton`. `npm run build` passes.
+- **04-project-dialogs** — `/editor` home screen (heading, description, `New Project` CTA; no cards). Create / Rename / Delete dialogs. `useProjectDialogs` hook owns dialog, form, list, and loading state; `ProjectDialogsProvider` wires editor home + sidebar. Sidebar lists mock owned/shared projects; rename/delete actions only on owned items. Create appends to the in-memory My Projects list and opens the sidebar. Submit shows a busy confirm button and blocks dismiss until the mock save finishes. Create dialog live-slug preview. Rename input auto-focuses and submits on Enter. Delete is a destructive confirmation. Mobile sidebar backdrop scrim closes on outside tap. No API or persistence.
+
+
 
 ## In Progress
 
 - None.
 
+
+
 ## Next Up
 
 - Add the next planned feature unit here.
+
+
 
 ## Open Questions
 
 - None.
 
+
+
 ## Architecture Decisions
 
-- Design is dark-only; all theme tokens live in globals.css as CSS custom properties mapped through `@theme inline`.
+- Design is dark-only; all theme tokens live in globals.css as CSS custom properties mapped through `@theme inline`. `:root` sets `color-scheme: dark` so native form controls use light text on dark fields.
 - shadcn components import `cn` from the `cn` package directly (radix-nova preset convention). `lib/utils.ts` exports a separate `cn()` using clsx + tailwind-merge for use in custom components.
 - Do not modify generated `components/ui/*` files.
 - Auth uses Clerk’s `dark` theme as the base, with appearance variables overridden from app CSS custom properties.
 - Route protection is protected-first in `proxy.ts`: only the Clerk sign-in and sign-up env var paths are public.
+- Project dialogs are client-only UI with mock data. Persistence stays out of this unit.
+
+
 
 ## Session Notes
 
@@ -43,3 +55,6 @@ Update this file whenever the current phase, active feature, or implementation s
 - `tw-animate-css` and `radix-ui` are installed as peer dependencies.
 - Clerk appearance lives in `lib/clerk-appearance.ts`. Auth page chrome lives in `components/auth/auth-split-layout.tsx`.
 - Clerk keys were added locally. Unauthenticated `/` and `/editor` redirect to `/sign-in`; `/sign-in` and `/sign-up` return 200 with the split layout.
+- Project dialog state lives in `hooks/use-project-dialogs.tsx`. Mock lists live in `lib/mock-projects.ts`. Slug helper lives in `lib/project-slug.ts`. Create/rename/delete mutate the in-memory owned list. Submit uses a short mock delay so loading UI can paint.
+- Create/Rename dialog name fields set `text-text-primary` explicitly. Native inputs were inheriting dark UA `fieldtext`, so typed characters showed in the slug preview but not in the name field.
+

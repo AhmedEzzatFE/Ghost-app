@@ -3,6 +3,8 @@
 
 /* ─── Brand tokens ─────────────────────────────────────────────────────────── */
 :root {
+  color-scheme: dark;
+
   /* Backgrounds */
   --bg-base:     #080809;
   --bg-surface:  #111114;
